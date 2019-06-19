@@ -1,4 +1,3 @@
-
 class BFS
     attr_accessor :route, :object
     def initialize(position,searchedClass,map)

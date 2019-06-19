@@ -1,3 +1,5 @@
+#ubah
+
 require_relative 'Store'
 require_relative 'Position'
 require_relative 'Driver'
@@ -5,6 +7,7 @@ require_relative 'RandomGenerator'
 require_relative 'Map'
 require_relative 'BFS'
 require_relative 'User'
+require 'json'
 
 def PrintOrderedList(*list,last)
     i = 0
@@ -23,7 +26,9 @@ def mapInitialization(argumentArray)
         RandomGenerator.Map(map)
     else
         if argumentArray[1] == NilClass
-            #ReadFile
+            file = JSON.parse(File.read(argumentArray[0]))
+            map = Map.new(file["mapSize"])
+            map.Add(User.new(Position.new(file["userPosition"]["x"],file["userPosition"][x])))
         else
             map = Map.new(argumentArray[0].to_i)
             map.Add(User.new(Position.new(argumentArray[1].to_i,argumentArray[2].to_i)).object_id)
@@ -58,7 +63,7 @@ def ChooseStore(map)
     i = 0
     Store.list.each do |elem|
         i+=1
-        print i,". ",elem.name,": ",elem.position.x," ",elem.position.y
+        print i,". ",elem.name," (",elem.position.x," ",elem.position.y,")"
         puts
     end
     userInput = gets.chomp.to_i-1
@@ -88,18 +93,19 @@ def OrderFood(map)
         puts
     end
     order.routeToStore.each do |elem|
-        print "Driver to ",elem.x," ",elem.y
+        print "Driver to ",elem.x,",",elem.y
         puts
     end
     puts "Driver Arrive at Store"
     order.routeToUser.each do |elem|
-        print "Driver to ",elem.x," ",elem.y
+        print "Driver to ",elem.x,",",elem.y
         puts
     end
     puts "Driver Arrive at Your Position"
     print "Rating(0-5): "
     userInput = gets.chomp.to_f
     order.Rating(userInput)
+    User.AddOrder(order)
 end
 def MainMenu(map)
     PrintOrderedList("Show Map","Order Food","View History","Exit")
@@ -113,6 +119,7 @@ def MainMenu(map)
         OrderFood(map)
         MainMenu(map)
     when 3
+        User.ShowHistory()
         MainMenu(map)
     when 99
         Exit(map)

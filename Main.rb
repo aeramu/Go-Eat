@@ -7,6 +7,7 @@ require_relative 'RandomGenerator'
 require_relative 'Map'
 require_relative 'BFS'
 require_relative 'User'
+require_relative 'FileHandler'
 require 'json'
 
 def PrintOrderedList(*list,last)
@@ -21,15 +22,15 @@ def PrintOrderedList(*list,last)
 end
 def mapInitialization(argumentArray)
     if argumentArray[0].class == NilClass
+        puts "tes"
         map = Map.new(10)
         map.Add(User.new(RandomGenerator.Position(10)).object_id)
         RandomGenerator.Map(map)
     else
-        if argumentArray[1] == NilClass
-            file = JSON.parse(File.read(argumentArray[0]))
-            map = Map.new(file["mapSize"])
-            map.Add(User.new(Position.new(file["userPosition"]["x"],file["userPosition"][x])))
+        if argumentArray[1].class == NilClass
+            map = ReadFile(argumentArray[0])
         else
+            puts "tis"
             map = Map.new(argumentArray[0].to_i)
             map.Add(User.new(Position.new(argumentArray[1].to_i,argumentArray[2].to_i)).object_id)
             RandomGenerator.Map(map)
@@ -85,7 +86,7 @@ def Exit(map)
 end
 def OrderFood(map)
     store = ChooseStore(map)
-    order = ChooseItem(Order.new(store,map),store.items)
+    order = ChooseItem(Order.MakeOrder(store,map),store.items)
     order.orderedItems.each do |elem|
         print elem[0].name," ",elem[1]
         puts
@@ -104,7 +105,10 @@ def OrderFood(map)
     puts "Driver Arrive at Your Position"
     print "Rating(0-5): "
     userInput = gets.chomp.to_f
-    order.Rating(userInput)
+    map.GetObject(order.routeToStore[0]).Rating(userInput)
+    Driver.list.each do |elem|
+        puts elem.rating
+    end
     User.AddOrder(order)
 end
 def MainMenu(map)

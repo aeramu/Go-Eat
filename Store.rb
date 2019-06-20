@@ -4,6 +4,9 @@ class Item
         @name = name
         @price = price
     end
+    def self.FromHash(hash)
+        Item.new(hash["name"],hash["price"])
+    end
 end
 
 class Store

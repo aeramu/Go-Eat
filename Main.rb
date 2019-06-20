@@ -22,7 +22,6 @@ def PrintOrderedList(*list,last)
 end
 def mapInitialization(argumentArray)
     if argumentArray[0].class == NilClass
-        puts "tes"
         map = Map.new(10)
         map.Add(User.new(RandomGenerator.Position(10)).object_id)
         RandomGenerator.Map(map)
@@ -30,7 +29,6 @@ def mapInitialization(argumentArray)
         if argumentArray[1].class == NilClass
             map = ReadFile(argumentArray[0])
         else
-            puts "tis"
             map = Map.new(argumentArray[0].to_i)
             map.Add(User.new(Position.new(argumentArray[1].to_i,argumentArray[2].to_i)).object_id)
             RandomGenerator.Map(map)

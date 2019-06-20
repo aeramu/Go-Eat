@@ -1,0 +1,54 @@
+{
+    "mapSize": 15,
+    "userPosition": {"x": 9,"y": 10},
+    "orderHistory": [
+        {
+            "storeName": "Nasgor Bang Jali",
+            "driverName": "Titi Puspa", 
+            "orderedItems":[
+                {
+                    "key":{"name": "Nasi Goreng","price": 10000},
+                    "value":3
+                },
+                {
+                    "key":{"name": "Es Teh","price": 3000},
+                    "value":3
+                }
+            ],
+            "routeToStore":[
+                {"x": 1,"y": 1},
+                {"x": 2,"y": 2}
+            ],
+            "routeToUser":[
+                {"x": 2, "y": 2},
+                {"x": 3, "y": 2},
+                {"x": 3, "y": 3}
+            ],
+            "totalCost": 45000
+        }
+    ],
+    "storeList": [
+        {
+            "name": "Nasgor Bang Jali",
+            "position": {"x":2,"y":2},
+            "items":[
+                {"name":"Nasi Goreng","price":10000},
+                {"name":"Es Teh","price":3000}
+            ]
+        }
+    ],
+    "driverList":[
+        {
+            "name":"Titi Martiti",
+            "position": {"x":4,"y":4},
+            "rating": 3.33,
+            "ratedBy": 3
+        },
+        {
+            "name":"Babang Ganteng",
+            "position": {"x":5,"y":4},
+            "rating": 5,
+            "ratedBy": 10
+        }
+    ]
+}

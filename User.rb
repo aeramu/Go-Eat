@@ -2,15 +2,28 @@
 
 class User
     attr_accessor :position
-    @orderHistory = Array.new()
+    @@orderHistory = Array.new()
     def initialize(position)
-        @position = position
+        @@position = position
+    end
+    def position
+        @@position
+    end
+    def self.position
+        @@position
     end
     def self.AddOrder(order)
-        @orderHistory<<order
+        @@orderHistory<<order
+    end
+    def self.orderHistoryHash
+        orderHistory = Array.new()
+        @@orderHistory.each do |elem|
+            orderHistory << elem.to_hash
+        end
+        orderHistory
     end
     def self.ShowHistory
-        @orderHistory.each do |elem|
+        @@orderHistory.each do |elem|
             puts "Store Name: #{elem.storeName}"
             puts "Driver Name:  #{elem.driverName}"
             puts "Ordered Items:"
@@ -48,5 +61,30 @@ class Order
     def AddItem(item, count)
         @totalCost += item.price*count
         @orderedItems[item] += count
+    end
+    def to_hash
+        hash = Hash.new()
+        hash["storeName"] = @storeName
+        hash["driverName"] = @driverName
+        orderedItems = Array.new()
+        @orderedItems.each do |key,value|
+            itemHash = Hash.new()
+            itemHash["key"] = key.to_hash
+            itemHash["value"] = value
+            orderedItems << itemHash
+        end
+        hash["orderedItems"] = orderedItems
+        routeToStore = Array.new()
+        @routeToStore.each do |position|
+            routeToStore << position.to_hash
+        end
+        hash["routeToStore"] = routeToStore
+        routeToUser = Array.new()
+        @routeToUser.each do |position|
+            routeToUser << position.to_hash
+        end
+        hash["routeToUser"] = routeToUser
+        hash["totalCost"] = @totalCost
+        hash    
     end
 end

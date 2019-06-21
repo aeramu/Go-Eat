@@ -1,0 +1,183 @@
+{
+  "mapSize": 10,
+  "userPosition": {
+    "x": 4,
+    "y": 9
+  },
+  "orderHistory": [
+    {
+      "storeName": "GFRPBYQC",
+      "driverName": "DSDRVPLO",
+      "orderedItems": [
+        {
+          "key": {
+            "name": "DJVCFACO",
+            "price": 50000
+          },
+          "value": 9
+        }
+      ],
+      "routeToStore": [
+        {
+          "x": 5,
+          "y": 5
+        },
+        {
+          "x": 5,
+          "y": 4
+        },
+        {
+          "x": 6,
+          "y": 4
+        }
+      ],
+      "routeToUser": [
+        {
+          "x": 6,
+          "y": 4
+        },
+        {
+          "x": 5,
+          "y": 4
+        },
+        {
+          "x": 4,
+          "y": 4
+        },
+        {
+          "x": 4,
+          "y": 5
+        },
+        {
+          "x": 4,
+          "y": 6
+        },
+        {
+          "x": 4,
+          "y": 7
+        },
+        {
+          "x": 4,
+          "y": 8
+        },
+        {
+          "x": 4,
+          "y": 9
+        }
+      ],
+      "totalCost": 471000
+    }
+  ],
+  "storeList": [
+    {
+      "name": "GFRPBYQC",
+      "position": {
+        "x": 6,
+        "y": 4
+      },
+      "items": [
+        {
+          "name": "WDLOWHYC",
+          "price": 39000
+        },
+        {
+          "name": "DJVCFACO",
+          "price": 50000
+        },
+        {
+          "name": "ZOJNFTRA",
+          "price": 17000
+        }
+      ]
+    },
+    {
+      "name": "HIEPSHAL",
+      "position": {
+        "x": 7,
+        "y": 4
+      },
+      "items": [
+        {
+          "name": "FBMVEXDD",
+          "price": 19000
+        },
+        {
+          "name": "ZLYURBJP",
+          "price": 45000
+        },
+        {
+          "name": "QGYKMKLT",
+          "price": 29000
+        }
+      ]
+    },
+    {
+      "name": "MAIDGEFW",
+      "position": {
+        "x": 7,
+        "y": 1
+      },
+      "items": [
+        {
+          "name": "EBWOYQCT",
+          "price": 13000
+        },
+        {
+          "name": "MDNVGKDU",
+          "price": 13000
+        },
+        {
+          "name": "WWGDXSFF",
+          "price": 15000
+        }
+      ]
+    }
+  ],
+  "driverList": [
+    {
+      "name": "ZXXNEYPJ",
+      "position": {
+        "x": 3,
+        "y": 2
+      },
+      "rating": 0,
+      "ratedBy": 0
+    },
+    {
+      "name": "LSUVUGNT",
+      "position": {
+        "x": 7,
+        "y": 0
+      },
+      "rating": 0,
+      "ratedBy": 0
+    },
+    {
+      "name": "JPYIUHZP",
+      "position": {
+        "x": 8,
+        "y": 8
+      },
+      "rating": 0,
+      "ratedBy": 0
+    },
+    {
+      "name": "DSDRVPLO",
+      "position": {
+        "x": 5,
+        "y": 5
+      },
+      "rating": 3.0,
+      "ratedBy": 1
+    },
+    {
+      "name": "HRNHPVRC",
+      "position": {
+        "x": 1,
+        "y": 6
+      },
+      "rating": 0,
+      "ratedBy": 0
+    }
+  ]
+}

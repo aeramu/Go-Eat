@@ -62,7 +62,7 @@ def ChooseStore(map)
     i = 0
     Store.list.each do |elem|
         i+=1
-        print i,". ",elem.name," (",elem.position.x," ",elem.position.y,")"
+        print i,". ",elem.name," (",elem.position.x,",",elem.position.y,")"
         puts
     end
     userInput = gets.chomp.to_i-1
@@ -104,10 +104,8 @@ def OrderFood(map)
     print "Rating(0-5): "
     userInput = gets.chomp.to_f
     map.GetObject(order.routeToStore[0]).Rating(userInput)
-    Driver.list.each do |elem|
-        puts elem.rating
-    end
     User.AddOrder(order)
+    WriteFile(map)
 end
 def MainMenu(map)
     PrintOrderedList("Show Map","Order Food","View History","Exit")

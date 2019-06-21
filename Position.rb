@@ -10,4 +10,10 @@ class Position
     def self.FromHash(hash)
         Position.new(hash["x"],hash["y"])
     end
+    def to_hash
+        hash = Hash.new()
+        hash["x"]=@x
+        hash["y"]=@y
+        hash
+    end
 end

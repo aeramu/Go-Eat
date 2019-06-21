@@ -15,4 +15,12 @@ class Driver
         @rating=((@rating*@ratedBy)+rate)/(@ratedBy+1)
         @ratedBy+=1
     end
+    def to_hash
+        hash = Hash.new()
+        hash["name"] = @name
+        hash["position"] = @position.to_hash
+        hash["rating"] = @rating
+        hash["ratedBy"] = @ratedBy
+        hash
+    end
 end

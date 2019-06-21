@@ -33,3 +33,23 @@ def ReadFile(fileName)
     end
     map
 end
+
+def WriteFile(map)
+    hash = Hash.new
+    hash["mapSize"]=map.size
+    hash["userPosition"] = User.position.to_hash
+    hash["orderHistory"] = User.orderHistoryHash
+    storeList = Array.new()
+    Store.list.each do |elem|
+        storeList << elem.to_hash
+    end
+    hash["storeList"] = storeList
+    driverList = Array.new()
+    Driver.list.each do |elem|
+        driverList << elem.to_hash
+    end
+    hash["driverList"] = driverList
+    File.open("tmp.json","w") do |f|
+        f.write(JSON.pretty_generate(hash))
+    end
+end

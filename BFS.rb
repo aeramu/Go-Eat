@@ -1,10 +1,9 @@
 class BFS
     attr_accessor :route, :object
-    def initialize(position,searchedClass,map)
+    def initialize(position,searchedClass)
         @queue = Array.new()
         @route = Array.new()
-        @trail = Array.new(map.size){Array.new(map.size)}
-        @map = map
+        @trail = Array.new($map.size){Array.new($map.size)}
         @searchedClass = searchedClass
         AddAdjecent(position)
         @trail[position.x][position.y] = Position.new(-999,-999)
@@ -12,9 +11,9 @@ class BFS
     end
     def Search
         position = @queue.shift
-        if @map.GetObject(position).class == @searchedClass
+        if $map.GetObject(position).class == @searchedClass
             TrackingRoute(position)
-            @object = @map.GetObject(position)
+            @object = $map.GetObject(position)
         else
             AddAdjecent(position)
             Search()
@@ -22,7 +21,7 @@ class BFS
     end
     def AddAdjecent(position)
         position.adjacent.each do |elem|
-            if  @map.isInside(elem)
+            if  $map.isInside(elem)
                 if @trail[elem.x][elem.y].class == NilClass
                     @queue << elem
                     @trail[elem.x][elem.y] = position

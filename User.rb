@@ -1,5 +1,3 @@
-#ubah
-
 class User
     attr_accessor :position
     @@orderHistory = Array.new()
@@ -48,13 +46,13 @@ class Order
         @routeToUser = routeToUser
         @totalCost = totalCost
     end
-    def self.MakeOrder(store,map)
+    def self.MakeOrder(store)
         storeName = store.name
-        @searchDriver = BFS.new(store.position,Driver,map)
+        @searchDriver = BFS.new(store.position,Driver)
         driverName = @searchDriver.object.name
         orderedItems = Hash.new(0)
         routeToStore = @searchDriver.route.reverse
-        routeToUser = BFS.new(store.position,User,map).route
+        routeToUser = BFS.new(store.position,User).route
         totalCost = (routeToUser.length-1)*3000
         Order.new(storeName,driverName,orderedItems,routeToStore,routeToUser,totalCost)
     end

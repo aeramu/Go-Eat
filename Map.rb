@@ -7,7 +7,9 @@ class ObjectMap
     def Add(objectID)
         @objectMap[ObjectSpace._id2ref(objectID).position.x][ObjectSpace._id2ref(objectID).position.y] = ObjectSpace._id2ref(objectID)
     end
-
+    def Delete(position)
+        @objectMap[position.x].delete_at(position.y)
+    end
     def Get(position)
         @objectMap[position.x][position.y]
     end
@@ -28,6 +30,9 @@ class VisualMap
         end
     end
 
+    def Delete(position)
+        @visualMap[position.x][position.y] = "."
+    end
     def Show
         @size.times do |i|
             @size.times do |j|
@@ -47,6 +52,10 @@ class Map
     def Add(objectID)
         @objectMap.Add(objectID)
         @visualMap.Add(objectID)
+    end
+    def Delete(position)
+        @objectMap.Delete(position)
+        @visualMap.Delete(position)
     end
     def GetObject(position)
         @objectMap.Get(position)

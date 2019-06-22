@@ -14,6 +14,23 @@ class Driver
     def Rating(rate)
         @rating=((@rating*@ratedBy)+rate)/(@ratedBy+1)
         @ratedBy+=1
+        self.RatingCheck
+        @rating
+    end
+    def RatingCheck
+        if(@rating<3)
+            i=0
+            @@list.each do |driver|
+                if driver.object_id == self.object_id
+                    @@list.delete_at(i)
+                end
+                i+=1
+            end
+        end
+        if @@list.empty?
+            puts "Mencari Driver..."
+            $map.Add(RandomGenerator.Driver($map).object_id)
+        end
     end
     def to_hash
         hash = Hash.new()

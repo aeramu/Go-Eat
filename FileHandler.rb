@@ -2,51 +2,33 @@ class FileHandler
     def self.Read(fileName)
         file = JSON.parse(File.read(fileName))
         map = Map.new(file["mapSize"])
-        map.Add(User.new(Position.FromHash(file["userPosition"])).object_id)
+        user = User.new(HashToPosition.new(file["userPosition"]).result)
+        map.Add(user)
         file["orderHistory"].each do |elem|
-            routeToStore = Array.new()
-            routeToUser = Array.new()
-            orderedItems = Hash.new()
-            elem["orderedItems"].each do |hash|
-                orderedItems[Item.FromHash(hash["key"])] = hash["value"]
-            end
-            elem["routeToStore"].each do |position|
-                routeToStore << Position.FromHash(position)
-            end
-            elem["routeToUser"].each do |position|
-                routeToUser << Position.FromHash(position)
-            end
-            User.AddOrder(Order.new(elem["storeName"],elem["driverName"],
-                orderedItems,routeToStore,routeToUser,elem["totalCost"]))
+            user.AddOrder(HashToOrder.new(elem).result)
         end
-        file["storeList"].each do |elem|
-            items = Array.new()
-            elem["items"].each do |item|
-                items << Item.FromHash(item)
-            end
-            map.Add(Store.new(elem["name"],Position.FromHash(elem["position"]),
-                items).object_id)
+        file["storeList"].each do |store|
+            map.Add(HashToStore.new(store).result)
         end
-        file["driverList"].each do |elem|
-            map.Add(Driver.new(elem["name"],Position.FromHash(elem["position"]),
-                elem["rating"],elem["ratedBy"]).object_id)
+        file["driverList"].each do |driver|
+            map.Add(HashToDriver.new(driver).result)
         end
-        map
+        [map,user]
     end
 
-    def self.Write(fileName)
+    def self.Write(fileName,map,user)
         hash = Hash.new
-        hash["mapSize"]=$map.size
-        hash["userPosition"] = User.position.to_hash
-        hash["orderHistory"] = User.orderHistoryHash
+        hash["mapSize"]=map.size
+        hash["userPosition"] = PositionToHash.new(user.position).result
+        hash["orderHistory"] = OrderHistoryToHash.new(user.orderHistory).result
         storeList = Array.new()
-        Store.list.each do |elem|
-            storeList << elem.to_hash
+        Store.list.each do |store|
+            storeList << StoreToHash.new(store).result
         end
         hash["storeList"] = storeList
         driverList = Array.new()
-        Driver.list.each do |elem|
-            driverList << elem.to_hash
+        Driver.list.each do |driver|
+            driverList << DriverToHash.new(driver).result
         end
         hash["driverList"] = driverList
         File.open(fileName,"w") do |f|

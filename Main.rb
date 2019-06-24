@@ -1,42 +1,64 @@
 require_relative 'Store'
+require_relative 'StoreToHash'
+require_relative 'StoreShower'
 require_relative 'Position'
+require_relative 'RouteToHash'
+require_relative 'HashToPosition'
+require_relative 'PositionToHash'
+require_relative 'AdjacentPosition'
 require_relative 'Driver'
-require_relative 'RandomGenerator'
+require_relative 'DriverToHash'
+require_relative 'DriverAroundChecker'
+require_relative 'DriverRatingExecutor'
+require_relative 'RandomMapGenerator'
+require_relative 'RandomPositionGenerator'
+require_relative 'RandomUserGenerator'
+require_relative 'RandomDriverGenerator'
+require_relative 'RandomStoreGenerator'
 require_relative 'Map'
-require_relative 'BFS'
+require_relative 'ObjectMap'
+require_relative 'VisualMap'
+require_relative 'MapShower'
+require_relative 'BFS'#masih acak2an
 require_relative 'User'
+require_relative 'OrderHistoryToHash'
+require_relative 'OrderHistoryShower'
+require_relative 'Order'
+require_relative 'OrderToHash'
+require_relative 'OrderedItemsToHash'
 require_relative 'FileHandler'
-require_relative 'Menu'
+require_relative 'ChooseMenu'
+require_relative 'MenuShower'
+require_relative 'ViewHistoryMenu'
+require_relative 'OrderFoodMenu'
+require_relative 'ExitMenu'
+require_relative 'ShowMapMenu'
+require_relative 'ChooseStore'
+require_relative 'ChooseItem'
+require_relative 'ItemsShower'
+require_relative 'OrderedItemsShower'
+require_relative 'TotalCostShower'
+require_relative 'RouteShower'
+require_relative 'RateDriver'
+require_relative 'OrderProcessor'
+require_relative 'Item'
+require_relative 'HashToItem'
+require_relative 'ItemToHash'
+require_relative 'ItemsToHash'
+require_relative 'Initialization'
+require_relative 'HashToItems'
+require_relative 'HashToStore'
+require_relative 'HashToDriver'
+require_relative 'HashToOrderedItems'
+require_relative 'HashToRoute'
+require_relative 'HashToOrder'
 require 'json'
 
-def PrintOrderedList(*list,last)
-    i = 0
-    list.each do |elem|
-        i+=1
-        print i,". ",elem.to_s
-        puts
-    end
-    print "99. ",last
-    puts
-end
-def mapInitialization(argumentArray)
-    if argumentArray[0].class == NilClass
-        map = Map.new(20)
-        map.Add(User.new(RandomGenerator.Position(10)).object_id)
-        RandomGenerator.Map(map)
-    else
-        if argumentArray[1].class == NilClass
-            map = FileHandler.Read(argumentArray[0])
-        else
-            map = Map.new(argumentArray[0].to_i)
-            map.Add(User.new(Position.new(argumentArray[1].to_i,argumentArray[2].to_i)).object_id)
-            RandomGenerator.Map(map)
-        end
-    end
-    map
-end
-
 argumentArray = ARGV
-$map = mapInitialization(argumentArray)
+initialization = Initialization.new(argumentArray)
+initialization.Initialize
 ARGV.clear
-Menu.MainMenu
+loop do
+    menu = ChooseMenu.new(initialization.user,initialization.map).Run
+    menu.Run
+end

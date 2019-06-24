@@ -1,34 +1,62 @@
-class RandomGenerator
-    def self.Position(max)
-        Position.new(rand(max),rand(max))
+class RandomPositionGenerator
+    def initialize(max)
+        @max = max
     end
-    def self.String(length)
-        (0...length).map {(65+rand(26)).chr}.join
+    def Generate
+        Position.new(rand(@max),rand(@max))
     end
-    def self.Driver(map)
-        position = Position(map.size)
-        while map.GetObject(position).class != NilClass
-            position = Position(map.size)
+end
+
+class RandomDriverGenerator
+    def initialize(map)
+        @map = map
+    end
+    def Generate
+        position = RandomPositionGenerator.new(@map.size).Generate
+        while @map.GetObject(position).class != NilClass
+            position = RandomPositionGenerator.new(@map.size).Generate
         end
-        Driver.new(String(8),position,0,0)
+        Driver.new("Abang Ganteng",position,0,0)
     end
-    def self.Store(map)
-        position = Position(map.size)
-        while map.GetObject(position).class != NilClass
-            position = Position(map.size)
+end
+
+class RandomStoreGenerator
+    def initialize(map)
+        @map = map
+    end
+    def Generate
+        position = RandomPositionGenerator.new(@map.size).Generate
+        while @map.GetObject(position).class != NilClass
+            position = RandomPositionGenerator.new(@map.size).Generate
         end
-        Store.new(String(8),position,[Item(50),Item(50),Item(50)])
+        Store.new("Nasgor Bang Jali",position,[Item.new("Nasi Goreng",10000),Item.new("Es Teh Manis",3000)])
     end
-    def self.Item(price)
-        Item.new(String(8), 5000+rand(price)*1000)
+end
+
+class RandomUserGenerator
+    def initialize(map)
+        @map = map
     end
-    def self.Map(map)
+    def Generate
+        position = RandomPositionGenerator.new(@map.size).Generate
+        while @map.GetObject(position).class != NilClass
+            position = RandomPositionGenerator.new(@map.size).Generate
+        end
+        User.new(position)
+    end
+end
+
+class RandomMapGenerator
+    def initialize(map)
+        @map = map
+    end
+    def Generate
         3.times do
-            map.Add(Store(map).object_id)
+            @map.Add(RandomStoreGenerator.new(@map).Generate)
         end
         5.times do
-            map.Add(Driver(map).object_id)
+            @map.Add(RandomDriverGenerator.new(@map).Generate)
         end
-        map
+        @map
     end
 end
